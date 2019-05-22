@@ -331,7 +331,8 @@ var PassHashCommon = {
     ) {
         "use strict";
         /* Start with the SHA1-encrypted master key/site tag. */
-        var s = b64_hmac_sha1(masterKey, siteTag);
+        /* var s = b64_hmac_sha1(masterKey, siteTag); */
+        var s = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA512(siteTag, masterKey));
         /* Use the checksum of all characters as a pseudo-randomizing seed to
          avoid making the injected characters easy to guess.  Note that it
          isn't random in the sense of not being deterministic (i.e.
